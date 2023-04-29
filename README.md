@@ -1,3 +1,3 @@
-# Hello World with React boilerplate
+To-do List with React and Fetch.
 
-This is the To Do List Project, all files are in the src/js and src/js/component folder and the styles folder.
+This is the To Do List Project with fetch, all files are in the src/js/component folder
