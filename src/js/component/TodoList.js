@@ -68,12 +68,34 @@ function TodoList() {
     const newTodos = [todo, ...todos];
 
     setTodos(newTodos);
+
+    fetch('https://assets.breatheco.de/apis/fake/todos/user/jpineda', {
+      method: 'PUT',
+      body: JSON.stringify(newTodos),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+      .then(response => response.json())
+      .then(data => console.log(data))
+      .catch(error => console.log(error));
   };
 
   const removeTodo = (id) => {
     const removeArr = [...todos].filter((todo) => todo.id !== id);
 
     setTodos(removeArr);
+
+    fetch('https://assets.breatheco.de/apis/fake/todos/user/jpineda', {
+      method: 'PUT',
+      body: JSON.stringify(removeArr),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+      .then(response => response.json())
+      .then(data => console.log(data))
+      .catch(error => console.log(error));
   };
 
   const completeTodo = (id) => {
@@ -86,17 +108,31 @@ function TodoList() {
     setTodos(updatedTodos);
   };
 
-  return (
-    <div>
-      <h1>Todo List - </h1>
-      <TodoForm onSubmit={addTodo} />
-      <Todo
-        todos={todos}
-        completeTodo={completeTodo}
-        removeTodo={removeTodo}
-      />
-    </div>
-  );
-}
+const deleteAll = () => {
+  setTodos([]);
 
+  fetch('https://assets.breatheco.de/apis/fake/todos/user/jpineda', {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  })
+    .then(response => response.json())
+    .then(data => console.log(data))
+    .catch(error => console.log(error));
+};
+
+return (
+  <div>
+    <h1>Todo List - </h1>
+    <TodoForm onSubmit={addTodo} />
+    <Todo
+      todos={todos}
+      completeTodo={completeTodo}
+      removeTodo={removeTodo}
+    />
+    <button onClick={deleteAll}>Clear All</button>
+  </div>
+);
+};
 export default TodoList;
